@@ -203,11 +203,11 @@ fn emit_package(dep: & toml::Table, out: & mut String)
 
         if ! slice.is_empty()
         {
-            out.push_str("dependencies =\n[\n");
+            out.push_str("dependencies = [\n");
 
-            for child in slice.iter() { out.push_str( & format ! ("    {},\n", child)); }
+            for child in slice.iter() { out.push_str( & format ! ("                   {},\n", child)); }
 
-            out.push_str("]\n");
+            out.push_str("               ]\n");
         }
         out.push('\n');
     }
