@@ -129,7 +129,8 @@ fn read_toml_string(path: & Path, is_embedded: bool , gctx: & GlobalContext) -> 
 #[tracing::instrument(skip_all)]
 fn parse_document(contents: & str,) -> Result<toml::Spanned<toml::de::DeTable<'static>>, toml::de::Error>
 {
-    let mut table = toml::de::DeTable::parse(contents)?;
+    let normalized = Normalize_Allman_TOML(contents);
+    let mut table = toml::de::DeTable::parse(&normalized)?;
     table.get_mut().make_owned();
     // SAFETY: `DeTable::make_owned` ensures no borrows remain and the lifetime does not affect
     // layout
